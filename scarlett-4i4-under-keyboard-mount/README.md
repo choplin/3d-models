@@ -78,10 +78,10 @@ strength, both by hand calculation.
 
 | | |
 |---|---|
-| Overall | 149.2 × 121.8 × 75.7 mm |
+| Overall | 189.2 × 121.8 × 75.7 mm |
 | Drop below the arm's underside | **70.7 mm** |
 | Thinnest wall | 2.5 mm |
-| Solid volume | 151.1 cm³ (≤ ~187 g in PLA — an upper bound, not a slicer estimate) |
+| Solid volume | 166.2 cm³ (≤ ~206 g in PLA — an upper bound, not a slicer estimate) |
 
 The drop is the number that matters on this stand: the side frame's upright is
 angled, so the clear length along the arm shrinks the lower you go. There is
@@ -92,9 +92,12 @@ far left or right of the stand rather than over the player's knees.
 
 ### Measured
 
-- Unit 140 x 115 x 59 mm. Width and depth are well under Focusrite's published
-  180 x 129, though the height matches; the measured figures are what the cavity
-  is built from.
+- Unit 180 x 115 x 59 mm. Width and height match Focusrite's published figures;
+  the depth is 14 mm under their 129, which is consistent with the published
+  number covering front and rear protrusions the chassis itself does not have.
+- The lowest feature on the rear panel sits about 10 mm above the underside of
+  the feet, so the rear stop is 7 mm rather than the 14 mm it started at. It only
+  has to arrest the unit as it slides back; nothing loads it.
 - Arm 30 x 30 mm, square section.
 - 245 mm clear along the arm from the frame junction to the tip, and 593 mm from
   the floor to the arm's underside.
@@ -151,7 +154,7 @@ No supports. Longest unsupported span is 3 mm.
 That orientation makes the build direction −Y, so each layer is one cross-section
 through the depth of the box, and **every lightening window has an end that
 closes in the build direction**. A square-ended window would have to be bridged
-there — the floor window alone would have been a 109 mm bridge. So all window ends
+there — the floor window alone would have been a 149 mm bridge. So all window ends
 taper at 45° (`window_2d`) and the floor window is split into three.
 `window_taper` raises that angle if the ends droop on a first print.
 

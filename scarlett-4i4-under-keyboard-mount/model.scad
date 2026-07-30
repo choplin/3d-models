@@ -36,9 +36,11 @@
 // close, and the step where the front lip stands proud of the floor.
 
 /* [Audio interface] */
-// Focusrite Scarlett 4i4 4th gen, off the unit with calipers. Width and depth
-// came out well under Focusrite's published 180 x 129; the height matches.
-device_width  = 140;  // measured
+// Focusrite Scarlett 4i4 4th gen, off the unit with calipers. Width and height
+// match Focusrite's published figures; the depth comes out 14 mm under their 129,
+// which is consistent with the published number including front and rear
+// protrusions that the chassis itself does not have.
+device_width  = 180;  // measured
 device_depth  = 115;  // measured
 device_height = 59;   // measured
 // total slack across each cavity dimension; larger than the profile's
@@ -80,7 +82,10 @@ ceiling_thickness = 9;    // the band under the groove
 ceiling_skin      = 3.2;  // the rest of the ceiling plate
 device_clearance  = 4.5;  // headroom, enough to tilt the unit in over the front lip
 front_lip_height  = 3;
-rear_stop_height  = 14;
+// The lowest thing on the rear panel sits about 10 mm above the underside of the
+// feet, so the stop has to clear it: it only has to arrest the unit as it slides
+// back, and nothing loads it.
+rear_stop_height  = 7;
 
 /* [Lightening windows] */
 floor_rim     = 20;
