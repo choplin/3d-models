@@ -9,7 +9,7 @@ unmeasured. Working output — renders, reports, logs — lands in `build/` and 
 gitignored.
 
 | Model | What it is |
-|---|---|
+| --- | --- |
 | [scarlett-4i4-under-keyboard-mount](scarlett-4i4-under-keyboard-mount/) | Hangs a Focusrite Scarlett 4i4 4th gen under an 88-key keyboard, from one top arm of a Donner Z-type stand |
 
 ## Conventions
