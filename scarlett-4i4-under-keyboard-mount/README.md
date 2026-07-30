@@ -51,40 +51,54 @@ plate is thin (3.2 mm) away from the band and windowed to keep the mass down.
 
 Plugging and unplugging front-panel cables pushes and pulls **along** the arm, so
 the groove walls have nothing to bear against and only strap friction resists it.
-Bare nylon on painted steel gives roughly 0.25, so two ties at ~300 N give ~75 N
-against a ~50 N pull — too close for comfort.
+Bare nylon on painted steel gives a coefficient of roughly 0.25, which is not
+enough on its own.
 
 **Lay a ~1.5 mm rubber strip in the groove.** A scrap of shelf liner or inner
-tube will do. It takes the coefficient to ~0.8, i.e. ~240 N. `groove_depth` is
-sized to swallow the strip and still leave positive engagement. Four ties instead
-of two helps as well.
+tube will do. It takes the coefficient to ~0.8. `groove_depth` is sized to
+swallow the strip and still leave positive engagement.
+
+With the 3 x 1 mm ties in hand this is the tightest margin in the whole design.
+Each loop clamps the band to the arm with about twice its own tension, so two
+loops hand-tightened to 40-60 N give 160-240 N of normal force, and with the
+rubber that is 130-190 N of friction against a ~50 N pull: **3-4x**. Without the
+rubber it is about 1x, i.e. it would creep. Heavier ties or four instead of two
+raise it proportionally. The tie rating assumed here is inferred from the size,
+not read off a datasheet.
 
 The failure mode is gradual creep along the arm, not breakage: visible and
 re-tightenable rather than sudden. Nylon ties do relax, so re-tighten after a few
 weeks.
 
-Everything else has a wide margin. By hand calculation, at ~0.96 kg total the
-strap tension runs ~90× under its rating and the ceiling band's bending stress
-~110× under PLA's strength.
+Holding the weight is not the problem. At ~0.96 kg the four tie legs run about
+30x under their rating and the ceiling's bending stress roughly 50x under PLA's
+strength, both by hand calculation.
 
 ## Dimensions
 
 | | |
 |---|---|
-| Overall | 189.2 × 135.8 × 75.7 mm |
+| Overall | 149.2 × 121.8 × 75.7 mm |
 | Drop below the arm's underside | **70.7 mm** |
 | Thinnest wall | 2.5 mm |
-| Solid volume | 182.5 cm³ (≤ ~226 g in PLA — an upper bound, not a slicer estimate) |
+| Solid volume | 151.1 cm³ (≤ ~187 g in PLA — an upper bound, not a slicer estimate) |
 
 The drop is the number that matters on this stand: the side frame's upright is
 angled, so the clear length along the arm shrinks the lower you go. There is
 245 mm of clear arm between the frame junction and the arm's tip, against the
-mount's 135.8 mm, so it fits with room.
+mount's 121.8 mm, so it fits with a lot of room. With the arm's underside 593 mm
+off the floor the bottom of the mount sits at about 522 mm, and it hangs at the
+far left or right of the stand rather than over the player's knees.
 
 ### Measured
 
-- Arm width 30 mm, square section.
-- 245 mm clear along the arm from the frame junction to the tip.
+- Unit 140 x 115 x 59 mm. Width and depth are well under Focusrite's published
+  180 x 129, though the height matches; the measured figures are what the cavity
+  is built from.
+- Arm 30 x 30 mm, square section.
+- 245 mm clear along the arm from the frame junction to the tip, and 593 mm from
+  the floor to the arm's underside.
+- Zip ties 3 mm wide, 1 mm thick. The slots are sized well over that; see below.
 - A hook socket on the arm's underside with a ~1 mm raised rim. Rather than
   positioning the mount to dodge it, the groove floor carries a relief channel
   down its centre, so the arm beds on two shoulders and the rim has somewhere to
@@ -92,13 +106,11 @@ mount's 135.8 mm, so it fits with room.
 - A rubber pad covering roughly the outer 100 mm of the arm. Place the straps
   clear of it and the keyboard is not lifted at all.
 
-### Still placeholders
+### Still unverified
 
-`device_width`, `device_depth` and `device_height` are Focusrite's published
-figures (180 × 129 × 59 mm), which tend to be maximum-envelope numbers. **The
-cavity is provisional until they are measured.** The height matters most: the 3rd
-gen measured 47.5 mm, and if this one is similar the drop below the arm falls to
-about 60 mm.
+Nothing dimensional. What has not been established is whether the mount actually
+holds in use — see *Known weakness* — and nothing here has been sliced or
+printed.
 
 ## Building
 
@@ -139,7 +151,7 @@ No supports. Longest unsupported span is 3 mm.
 That orientation makes the build direction −Y, so each layer is one cross-section
 through the depth of the box, and **every lightening window has an end that
 closes in the build direction**. A square-ended window would have to be bridged
-there — the floor window would have been a 149 mm bridge. So all window ends
+there — the floor window alone would have been a 109 mm bridge. So all window ends
 taper at 45° (`window_2d`) and the floor window is split into three.
 `window_taper` raises that angle if the ends droop on a first print.
 

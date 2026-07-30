@@ -36,10 +36,11 @@
 // close, and the step where the front lip stands proud of the floor.
 
 /* [Audio interface] */
-// Focusrite Scarlett 4i4 4th gen, published spec - confirm with calipers
-device_width  = 180;  // placeholder
-device_depth  = 129;  // placeholder
-device_height = 59;   // placeholder
+// Focusrite Scarlett 4i4 4th gen, off the unit with calipers. Width and depth
+// came out well under Focusrite's published 180 x 129; the height matches.
+device_width  = 140;  // measured
+device_depth  = 115;  // measured
+device_height = 59;   // measured
 // total slack across each cavity dimension; larger than the profile's
 // fit_clearance because this is a drop-in cradle, not a press fit
 device_fit    = 1.2;
@@ -63,7 +64,10 @@ relief_depth  = 1.5;
 band_offset_x = 0;    // shift the band if the bar is not centred under the unit
 
 /* [Straps] */
-strap_slot_width     = 14;  // along the bar; fits a 12 mm strap or a heavy zip tie
+// Sized well over the 3 x 1 mm ties in hand: the slot drives no outer dimension,
+// so the slack is free, and it leaves room to double up ties or move to a
+// hook-and-loop strap without reprinting.
+strap_slot_width     = 14;  // along the bar
 strap_slot_thickness = 3;
 strap_spacing_y      = 90;  // centre-to-centre of the two strap loops, along the bar
 strap_wall           = 5;   // material each side of a slot; it carries the load
