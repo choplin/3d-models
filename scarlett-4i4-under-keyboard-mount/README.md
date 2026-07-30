@@ -149,7 +149,17 @@ top of the file, so it also appears in the Customizer.
 rectangular tube standing on a closed perimeter ring: every wall vertical, the
 load path inside the layers rather than across them, and good bed adhesion.
 
-No supports. Longest unsupported span is 3 mm.
+No supports, and nothing has to be bridged further than 3 mm. A slicer will still
+warn about long bridging extrusions: the front lip's inner face is a 181 x 3 mm
+horizontal surface that appears in a single layer near the top of the print
+(around z = 119 mm). It is anchored along its whole 181 mm lower edge to the floor
+directly beside it, so the actual unsupported distance is 3 mm — the warning
+counts extrusion length, not span. It prints.
+
+The lip keeps a vertical face deliberately. A 45 degree chamfer would silence the
+warning and turn a positive stop into a ramp: as it stands the unit has to be
+lifted 3 mm to escape, whereas off a 45 degree ramp roughly 15 N of forward pull
+would walk it out, and unplugging a stiff jack applies more than that.
 
 That orientation makes the build direction −Y, so each layer is one cross-section
 through the depth of the box, and **every lightening window has an end that

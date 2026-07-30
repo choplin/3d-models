@@ -32,8 +32,18 @@
 // in the build direction, and a square-ended window would have to be bridged
 // there. So all the windows have 45 degree ends (window_2d) and the floor window
 // is split into three, keeping every closing edge self-supporting.
-// No supports needed. Longest unsupported span is 3 mm: the strap slots where they
-// close, and the step where the front lip stands proud of the floor.
+// No supports needed, and no span longer than 3 mm has to be bridged. Two things
+// do come out unsupported, and a slicer will flag the second of them:
+//   - the strap slots as they close, 3 mm across, 54 mm2 each;
+//   - the front lip's inner face, 181 x 3 mm. It appears in one layer near the
+//     top of the print, but it is anchored along its whole 181 mm lower edge to
+//     the floor beneath it, so it is a 3 mm step, not a 181 mm bridge. Slicers
+//     report it by extrusion length rather than by span, hence the warning.
+// The lip is left with a vertical face on purpose. Chamfering it at 45 degrees
+// would remove the warning and turn the stop into a ramp the unit can climb: a
+// vertical 3 mm step needs the unit to be lifted before it can escape, while a
+// 45 degree ramp lets a ~15 N forward pull walk it out, well under what
+// unplugging a stiff jack applies.
 
 /* [Audio interface] */
 // Focusrite Scarlett 4i4 4th gen, off the unit with calipers. Width and height
