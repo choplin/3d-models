@@ -102,16 +102,18 @@ about 60 mm.
 
 ## Building
 
-Needs the OpenSCAD desktop application and `jq`. On macOS:
-
 ```sh
-brew install --cask openscad
-brew install jq
-```
-
-```sh
+direnv allow          # or: nix develop
 scripts/build.sh model.scad     # from the 3d-print skill
 ```
+
+The repo's dev shell supplies `jq` everywhere and OpenSCAD on Linux. On macOS
+OpenSCAD comes from the desktop app instead — `brew install --cask openscad` —
+because the live preview is needed there anyway and that one install already puts
+the same binary on PATH as the CLI. See the repo README for why.
+
+The build reads `printer.json` from the repo root, so it targets the same printer
+on every machine.
 
 That exports `model.stl`, renders five views into `build/`, and prints one JSON
 report. `build/` is regenerable and gitignored.
