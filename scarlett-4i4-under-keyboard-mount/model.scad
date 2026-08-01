@@ -32,18 +32,56 @@
 // in the build direction, and a square-ended window would have to be bridged
 // there. So all the windows have 45 degree ends (window_2d) and the floor window
 // is split into three, keeping every closing edge self-supporting.
-// No supports needed, and no span longer than 3 mm has to be bridged. Two things
-// do come out unsupported, and a slicer will flag the second of them:
+// No supports needed. Two things come out unsupported:
 //   - the strap slots as they close, 3 mm across, 54 mm2 each;
-//   - the front lip's inner face, 181 x 3 mm. It appears in one layer near the
-//     top of the print, but it is anchored along its whole 181 mm lower edge to
-//     the floor beneath it, so it is a 3 mm step, not a 181 mm bridge. Slicers
-//     report it by extrusion length rather than by span, hence the warning.
-// The lip is left with a vertical face on purpose. Chamfering it at 45 degrees
-// would remove the warning and turn the stop into a ramp the unit can climb: a
-// vertical 3 mm step needs the unit to be lifted before it can escape, while a
-// 45 degree ramp lets a ~15 N forward pull walk it out, well under what
-// unplugging a stiff jack applies.
+//   - the underside of the front lip's raised stop. That face is horizontal in
+//     the build direction, so a slicer bridges it lengthwise and reports it by
+//     extrusion length rather than by span.
+// The stop keeps a vertical face on purpose. Chamfering it at 45 degrees would
+// remove the bridge and turn the stop into a ramp the unit can climb: a vertical
+// step needs the unit to be lifted before it can escape, while a 45 degree ramp
+// lets a ~15 N forward pull walk it out, well under what unplugging a stiff jack
+// applies.
+//
+// The first print, rear face down, confirmed that the face does droop: the bridge
+// lines came away as strands, so the stop lost material through its 2.8 mm
+// THICKNESS while its height, which comes off the layers below, stayed intact.
+// The strands were nipped flush and the part stayed in service - even at 1.5 mm
+// of remaining thickness the stop sees only ~2 MPa of bending under the 50 N pull
+// assumed at the foot of this file, against a PLA yield some twenty times that.
+// That print also showed the stop was too short: the rubber feet spend the first
+// 1.5 mm of it, so only 1.5 mm of chassis was caught. The stop is taller now,
+// which makes the drooping face proportionally deeper, so it is also split into
+// lip_blocks blocks along X. Each block bridges on its own, no single bridge runs
+// the width of the part, and the stop face stays vertical.
+//
+// WHERE THIS STANDS (2026-08-01)
+// The part in service is the FIRST print and is one revision behind this file: it
+// has the 3 mm stop, so 1.5 mm of engagement, and its ragged stop underside was
+// nipped flush. It works. Nothing here has been printed yet, and nothing needs to
+// be until that part is replaced - the changes are a taller stop and a split lip,
+// neither of which fixes a fault in the part that is hanging under the keyboard.
+//
+// Two things are deliberately left open.
+//
+// 1. lip_blocks is 5, which does not remove the droop, only shrinks it. The
+//    measured numbers are at the parameter itself. 19 removes it outright and was
+//    left unset on purpose, to be judged in live preview against how a 19-tooth
+//    comb looks rather than from the number alone.
+//
+// 2. The slicer's stability warning fires even with no long bridge left. With
+//    lip_blocks = 19 there is no bridging extrusion over 4.4 mm anywhere in the
+//    part - that 4.4 mm is a strap slot, which is intended - and eufyMake Studio
+//    still reports common_slicepopup_stabilityissue. So the warning is not, or is
+//    no longer, only about the lip. Its CLI does not print which of the eight
+//    stability items fired, so THIS NEEDS ONE SLICE IN THE GUI to read the detail
+//    line. Until someone does that, the cause is unknown and unattributed. Note
+//    that the warning did disappear on the 140 mm-wide revision of this model, so
+//    the second cause probably arrived with the widening to 180 mm.
+//
+// How the bridge numbers here were measured: slice from the command line and read
+// the toolpaths, per the 3d-print-eufymake-cli skill. Nothing in this file was
+// judged by eye.
 
 /* [Audio interface] */
 // Focusrite Scarlett 4i4 4th gen, off the unit with calipers. Width and height
@@ -90,8 +128,34 @@ floor_thickness   = 3.2;
 lip_wall          = 2.8;
 ceiling_thickness = 9;    // the band under the groove
 ceiling_skin      = 3.2;  // the rest of the ceiling plate
-device_clearance  = 4.5;  // headroom, enough to tilt the unit in over the front lip
-front_lip_height  = 3;
+// The stop catches the chassis, not the air under it: the rubber feet hold the
+// chassis clear of the floor, so that much of the lip's height is spent before
+// anything is engaged. Both numbers below feed front_lip_height, derived later.
+device_foot_height = 1.5;  // measured - floor to the underside of the chassis
+lip_engagement     = 3;    // how much of the chassis the stop actually catches
+// Getting the unit in means lifting it clear of the lip, and the headroom above
+// it is what allows that. It cannot be tilted in instead: the depth slack is
+// 1.2 mm, which binds at about 1 degree. So the headroom is the lip plus this
+// margin, and raising either adds directly to drop_below_arm.
+lip_lift_margin    = 1.5;
+// The raised stop is split along X so that no single bridge runs the width of
+// the part when it is printed rear face down. See the header note.
+//
+// Longest bridging extrusion, measured off the G-code at each setting:
+//
+//   lip_blocks / gap   block width   longest bridge   extrusions over 10 mm
+//        1 (unsplit)       181 mm         183.1 mm            5
+//        5 / 8              31.4 mm        29.4 mm           43
+//        9 / 8              13.9 mm        11.8 mm           63
+//       19 / 5               5.2 mm         4.4 mm            0
+//
+// At 19 the longest bridge left in the whole part is a strap slot, i.e. the lip
+// stops bridging at all, because each tooth is narrower than it is deep and the
+// slicer bridges the short way across it. The cost is contact length: the stop
+// touches the chassis over 99 mm instead of 149 mm, which is still far more than
+// it needs. 5 is what is set because the shape had not been looked at in preview.
+lip_blocks     = 5;
+lip_block_gap  = 8;
 // The lowest thing on the rear panel sits about 10 mm above the underside of the
 // feet, so the stop has to clear it: it only has to arrest the unit as it slides
 // back, and nothing loads it.
@@ -118,6 +182,11 @@ $fn = 48;
 eps = 0.01;
 
 // --- derived -----------------------------------------------------------------
+// The stop has to clear the feet before it engages, and the headroom has to clear
+// the stop before the unit can be lifted in over it.
+front_lip_height = device_foot_height + lip_engagement;
+device_clearance = front_lip_height + lip_lift_margin;
+
 cav_x   = device_width + device_fit;
 cav_y   = device_depth + device_fit;
 outer_x = cav_x + 2 * side_wall;
@@ -211,9 +280,20 @@ module ceiling() {
     }
 }
 
+// The rim runs the full width at floor level; the raised stop above it is broken
+// into blocks. Y is the build direction, so the stop's underside is a horizontal
+// face, and splitting it is what keeps each bridge to a block's width instead of
+// the width of the part.
 module front_lip() {
+    block_w = (outer_x - (lip_blocks - 1) * lip_block_gap) / lip_blocks;
+    assert(block_w > lip_block_gap,
+           "lip blocks are narrower than the gaps between them - lower lip_blocks or lip_block_gap");
     translate([-outer_x / 2, -outer_y / 2, floor_bottom_z])
-        cube([outer_x, lip_wall, floor_thickness + front_lip_height]);
+        cube([outer_x, lip_wall, floor_thickness]);
+    for (i = [0 : lip_blocks - 1])
+        translate([-outer_x / 2 + i * (block_w + lip_block_gap), -outer_y / 2,
+                   floor_top_z])
+            cube([block_w, lip_wall, front_lip_height]);
 }
 
 module rear_stop() {
