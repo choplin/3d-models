@@ -33,6 +33,7 @@ Note `nixpkgs.openscad` is still the 2021.01 release, which predates the
 | Model | What it is |
 | --- | --- |
 | [scarlett-4i4-under-keyboard-mount](scarlett-4i4-under-keyboard-mount/) | Hangs a Focusrite Scarlett 4i4 4th gen under an 88-key keyboard, from one top arm of a Donner Z-type stand |
+| [under-keyboard-parts-tray](under-keyboard-parts-tray/) | An open shelf on the same strap-and-band mount, for a tuner, picks, a winder and a wireless receiver |
 
 ## Conventions
 
